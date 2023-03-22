@@ -147,6 +147,11 @@ class MyBaseTaskSet(TaskSet):
         self.failure_check(response=r, action_name=action_name)
         return r
 
+    def put(self, *args, **kwargs):
+        r = self.client.put(*args, **kwargs)
+        action_name = inspect.stack()[1][3]
+        self.failure_check(response=r, action_name=action_name)
+        return r
 
 class BaseResource:
     action_name = ''

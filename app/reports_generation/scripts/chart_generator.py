@@ -60,13 +60,14 @@ def make_chart(config: dict, results_dir: Path, scenario_status: str) -> Path:
         data_frame = data_frame.rename(index={action: f"\u2714{action}"})
 
     data_frame = data_frame.sort_index()
-    data_frame.plot.barh(figsize=(image_width, image_height))
+    plot_with_percentage(data_frame, image_width, image_height)
     plt.xlabel('Time, ms')
     plt.title(title)
     plt.tight_layout()
 
     image_path = results_dir / __generate_image_name(Path(csv_path_str).stem)
     plt.savefig(image_path)
+    # plt.show()
     validate_file_exists(image_path, f"Result file {image_path} is not created")
     print(f"Chart file: {image_path.absolute()} successfully created")
 
@@ -77,3 +78,30 @@ def perform_chart_creation(config: dict, results_dir: Path, scenario_status: str
     validate_config(config)
     output_file_path = make_chart(config, results_dir, scenario_status)
     return output_file_path
+
+def plot_with_percentage(data_frame, image_width, image_height):
+    base_column_name = data_frame.columns[0]
+    initial_columns = data_frame.columns
+    comparison_columns = data_frame.columns[1:-1]
+    print(initial_columns)
+    for column in comparison_columns:
+        percent_change_column_name = f'Percent Change ({column} vs {base_column_name})'
+        data_frame[percent_change_column_name] = ((data_frame[column] - data_frame[base_column_name]) / data_frame[base_column_name]) * 100
+
+    ax = data_frame[initial_columns].plot.barh(figsize=(image_width, image_height))
+
+    max_value = data_frame[initial_columns[1:]].max().max() * 0.02
+    offset_x = max_value * 1.5
+    offset_y = 0.2
+    for i, (_, row) in enumerate(data_frame.iterrows()):
+        for j, column in enumerate(comparison_columns):
+            percent_change = row[f'Percent Change ({column} vs {base_column_name})']
+            text_color = 'red' if abs(percent_change) > 20 else 'black'
+
+            value = row[column]
+            text_position_x = row[column] + offset_x * (j+2)  # Увеличиваем горизонтальное смещение
+            text_position_y = i - offset_y * (j+1) / len(initial_columns)  # Увеличиваем и инвертируем вертикальное смещение
+
+            ax.text(text_position_x, text_position_y, f'{percent_change:.2f}%', va='center', color=text_color)
+
+
