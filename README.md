@@ -192,3 +192,9 @@ To help us continue improving the Toolkit, we’d love you to keep these analyti
 
 ## Running Taurus
 Navigate to [docs](docs) folder and follow instructions.
+
+## Notes
+- restore Space from space-export.xml.zip
+- change chromedriver version in confluence.yml
+- change pageId in extension_locust.py
+- use putty and xftp/fileZilla (convert pem to ppk file)

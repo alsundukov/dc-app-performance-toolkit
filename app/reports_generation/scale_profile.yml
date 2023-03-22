@@ -1,16 +1,16 @@
 # Defines which column from test runs is used for aggregated report. Default is "90% Line"
 column_name: "90% Line"
 runs:
-  # fullPath should contain a full path to the directory with run results. E.g. /home/$USER/dc-app-performance-toolkit/app/results/jira/2019-08-06_18-41-08
+  # fullPath should contain a full path to the directory with run results. E.g. /home/$USER/dc-app-performance-toolkit/jira/results/2019-08-06_18-41-08
   - runName: "1 Node"
     runType: "baseline"
-    fullPath: ""
+    fullPath: "C:/Users/asundukov/projects/it-test-tablefilter/aws results/2023/final/2023-03-21_22-40-29-one-node"
   - runName: "2 Nodes"
     runType: "experiment"
-    fullPath: ""
+    fullPath: "C:/Users/asundukov/projects/it-test-tablefilter/aws results/2023/final/2023-03-22_08-27-07-two-nodes"
   - runName: "4 Nodes"
     runType: "experiment"
-    fullPath: ""
+    fullPath: "C:/Users/asundukov/projects/it-test-tablefilter/aws results/2023/final/2023-03-22_10-52-51-four-nodes"
 
 # Chart generation configs
 index_col: "Action"

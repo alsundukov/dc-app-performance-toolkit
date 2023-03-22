@@ -44,8 +44,33 @@ Add custom actions anywhere between login and log out action. Move this to a dif
 Write your custom selenium scripts in `app/extension/confluence/extension_ui.py`.
 Refer to `app/selenium_ui/confluence/modules.py` for examples.
 """
-# def test_1_selenium_custom_action(confluence_webdriver, confluence_datasets, confluence_screen_shots):
-#     extension_ui.app_specific_action(confluence_webdriver, confluence_datasets)
+
+def test_1_selenium_tf_macro(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_tf(confluence_webdriver)
+
+def test_1_selenium_pivot_macro(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_pivot(confluence_webdriver)
+
+def test_1_selenium_chart_macro(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_chart(confluence_webdriver)
+
+def test_1_selenium_transformer_macro(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_transformer(confluence_webdriver)
+
+def test_1_selenium_excerpt_macro(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_excerpt(confluence_webdriver)
+
+def test_1_selenium_csv_macro(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_csv(confluence_webdriver)
+
+def test_1_selenium_json_macro(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_json(confluence_webdriver)
+
+def test_1_selenium_combined_macros(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_combined_macros(confluence_webdriver)
+
+def test_1_selenium_spreadsheet_macro(confluence_webdriver, confluence_datasets, confluence_screen_shots):
+    extension_ui.load_page_with_spreadsheet_macro(confluence_webdriver)
 
 
 # this action should be the last one
