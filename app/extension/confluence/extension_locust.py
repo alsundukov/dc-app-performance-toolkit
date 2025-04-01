@@ -11,7 +11,7 @@ def app_specific_action(locust):
             logger.error(f"'true' was not found in {content}")
         assert 'true' in content
 
-    pageId = "11632654"
+    pageId = get_next_page_id()
     body = {
         "id": "1614949740087_1061343762",
         "pageId": pageId,
@@ -45,7 +45,7 @@ def app_specific_action(locust):
     # @confluence_measure("locust_app_export_page_tree")
     # def app_export_page_tree(locust):
 
-    chartPageId = 11632646
+    chartPageId = 45579794
     data = {
         "id": "1614946514771_95557416",
         "pageId": chartPageId,
@@ -55,3 +55,10 @@ def app_specific_action(locust):
     }
     locust.put('/rest/table-filter/1.0/service/export/multi-page', data, catch_response=True)
 
+def get_next_page_id():
+    page_ids = ["46438695", "46438699", "46438703"]
+    if not hasattr(get_next_page_id, "index"):
+        get_next_page_id.index = 0
+    current_id = page_ids[get_next_page_id.index]
+    get_next_page_id.index = (get_next_page_id.index + 1) % len(page_ids)
+    return current_id

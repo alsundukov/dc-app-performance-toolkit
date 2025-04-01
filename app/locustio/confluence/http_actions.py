@@ -580,7 +580,7 @@ def open_editor_and_create_blog(locust):
         if 'current' not in content or 'title' not in content:
             logger.error(f'Could not open draft {draft_name}: {content}')
         assert 'current' in content and 'title' in content, 'Could not open blog draft.'
-        created_blog_title = fetch_by_re(params.created_blog_title_re, content)
+        created_blog_title = fetch_by_re(params.created_blog_title_re, content).lstrip('/')
         logger.locust_info(f'Blog {created_blog_title} created')
 
         # 680 {created_blog_title}

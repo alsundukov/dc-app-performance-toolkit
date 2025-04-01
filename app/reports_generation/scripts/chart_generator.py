@@ -60,14 +60,15 @@ def make_chart(config: dict, results_dir: Path, scenario_status: str) -> Path:
         data_frame = data_frame.rename(index={action: f"\u2714{action}"})
 
     data_frame = data_frame.sort_index()
-    plot_with_percentage(data_frame, image_width, image_height)
+    data_frame.plot.barh(figsize=(image_width, image_height))
+    #plot_with_percentage(data_frame, image_width, image_height)
     plt.xlabel('Time, ms')
     plt.title(title)
     plt.tight_layout()
 
     image_path = results_dir / __generate_image_name(Path(csv_path_str).stem)
     plt.savefig(image_path)
-    # plt.show()
+    #plt.show()
     validate_file_exists(image_path, f"Result file {image_path} is not created")
     print(f"Chart file: {image_path.absolute()} successfully created")
 

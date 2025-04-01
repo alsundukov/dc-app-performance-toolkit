@@ -68,8 +68,21 @@ kubectl exec -it "$exec_pod_name" -n atlassian -- docker run --shm-size=4g -v "/
 sleep 10
 
 echo "INFO: Copy results folder from the exec env pod to local"
-kubectl cp --retries 10 atlassian/"$exec_pod_name":dc-app-performance-toolkit/app/results dc-app-performance-toolkit/app/results
-if [[ $? -ne 0 ]]; then
+
+max_attempts=5
+attempt=1
+while [ $attempt -le $max_attempts ]; do
+  kubectl cp atlassian/"$exec_pod_name":dc-app-performance-toolkit/app/results dc-app-performance-toolkit/app/results
+  if [ $? -eq 0 ]; then
+    break
+  else
     echo "ERROR: Copy results folder failed"
-    exit 1
+  fi
+  attempt=$((attempt+1))
+  sleep 10
+done
+
+if [ $attempt -gt $max_attempts ]; then
+  echo "ERROR: Copy results folder failed after $max_attempts attempts"
+  exit 1
 fi
